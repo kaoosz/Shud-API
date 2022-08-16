@@ -1,0 +1,25 @@
+http://localhost:8000/api/candidatesRe/candidatesRe?urna=MARCELO ARO
+
+http://localhost:8000/api/candidatesRe/candidatesRe?bairro=bairro2016&urna=MARCELO ARO
+
+
+bairro=votesneighborhood&
+bairro=bairro2018&
+bairro=bairro2016&
+bairro=bairro2014&
+bairro=bairro2012&
+
+CIDADE
+UF=BELO HORIZONTE
+NR_CANDIDATO=3133
+ANO=2014
+
+
+VOTOS POR SCHOOLS
+
+escola=schools2016
+E TUDO ACIMA MENOS OS BAIRROS
+
+
+cidade=cities2020
+e ano
