@@ -24,7 +24,6 @@ class Candidate extends Model
     //public function bairro2020() :HasMany
     {
        return $this->hasMany(VotesNeighborhood::class,'NM_VOTAVEL')// local key?= primary key
-       //return $this->hasMany(VotesNeighborhood::class,'NM_VOTAVEL','NM_URNA_CANDIDATO')// local key?= primary key
        ->select("NM_VOTAVEL","NR_VOTAVEL","ANO_ELEICAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
        ->orderByDesc('QT_VOTOS');
     }

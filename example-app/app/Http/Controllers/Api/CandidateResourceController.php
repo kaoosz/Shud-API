@@ -24,8 +24,8 @@ class CandidateResourceController extends Controller
     public function index(Candidate $candidate)
     {
 
-        $can = Candidate::query()->when(request()->get('show') === 'bairro2018',
-        fn($query) => $query->with('bairro2018'))->paginate(3);
+        $can = Candidate::query()->paginate();//->when(request()->get('show') === 'bairro2018',
+        //fn($query) => $query->with('bairro2018'))->paginate(3);
 
         return CandidateResource::collection($can);
 
@@ -52,7 +52,7 @@ class CandidateResourceController extends Controller
     {
 
         $can = Candidate::query()
-        ->where('NM_URNA_CANDIDATO',request()->get('urna'))->get();
+        ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate();//->get();
 
 
         if(request()->get('ANO')){
@@ -81,9 +81,8 @@ class CandidateResourceController extends Controller
             ->where([['NM_URNA_CANDIDATO',request()->get('urna')],
             ['ANO_ELEICAO',request()->get('ANO')],
             ['NR_CANDIDATO',request()->get('NR_CANDIDATO')]]
-            )->get();
+            )->paginate();//->get();//->get();
         }
-
 
         return CandidateResource::collection($can);
 

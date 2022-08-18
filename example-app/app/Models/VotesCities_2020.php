@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class VotesCities_2020 extends Model
 {
     use HasFactory;
-    protected $table = 'votes_cities';
+    protected $table = 'votes_cities_2020';
     protected $primaryKey = 'NM_VOTAVEL';
     public $incrementing = false;
     protected $keyType = 'string';
@@ -17,7 +17,6 @@ class VotesCities_2020 extends Model
 
     public function candidate()
     {
-        //$this->belongsTo(Candidate::class,'NR_CANDIDATE','NM_VOTAVEL')//owner key?
         $this->belongsTo(Candidate::class,'NM_URNA_CANDIDATO','NM_VOTAVEL')//owner key?
         ->select('ANO_ELEICAO','NM_CANDIDATO','NM_URNA_CANDIDATO','SG_UF','NM_UE','NR_CPF_CANDIDATO','CD_ELEICAO','NR_CANDIDATO');
     }
