@@ -51,15 +51,16 @@ class CandidateResourceController extends Controller
     public function show(Candidate $candidate,Request $request)
     {
 
-        $can = Candidate::query()
-        ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate();//->get();
 
+        // $can = Candidate::query()
+        // ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate();//->get();
+        if(!request()->get('ANO') or !request()->get('NR_CANDIDATO') ){
+            $can = Candidate::query()
+            ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate();
+        }
 
         if(request()->get('ANO')){
             $can = Candidate::query()
-            //  ->with(['votesneighborhood','bairro2018','bairro2016','bairro2014','bairro2012',
-            //  'schools2020','schools2018','schools2016','schools2014','schools2012',
-            //  'cities2020','cities2018','cities2016','cities2014','cities2012'])
             ->when(request()->get('escola') === 'schools2020',fn($query) => $query->with('schools2020'))
             ->when(request()->get('escola') === 'schools2018',fn($query) => $query->with('schools2018'))
             ->when(request()->get('escola') === 'schools2016',fn($query) => $query->with('schools2016'))
@@ -72,7 +73,7 @@ class CandidateResourceController extends Controller
             ->when(request()->get('cidade') === 'cities2014',fn($query) => $query->with('cities2014'))
             ->when(request()->get('cidade') === 'cities2012',fn($query) => $query->with('cities2012'))
 
-            ->when(request()->get('bairro') === 'votesneighborhood',fn($query) => $query->with('votesneighborhood'))
+            ->when(request()->get('bairro') === 'bairro2020',fn($query) => $query->with('bairro2020'))
             ->when(request()->get('bairro') === 'bairro2018',fn($query) => $query->with('bairro2018'))
             ->when(request()->get('bairro') === 'bairro2016',fn($query) => $query->with('bairro2016'))
             ->when(request()->get('bairro') === 'bairro2014',fn($query) => $query->with('bairro2014'))
@@ -86,10 +87,6 @@ class CandidateResourceController extends Controller
 
         return CandidateResource::collection($can);
 
-        // $can = Candidate::query()->when(request()->get('bairro') === 'votesneighborhood',//'votesneighborhood',
-        // fn($query) => $query->with('votesneighborhood'))
-        // ->where('NM_URNA_CANDIDATO',"{$nome}")
-        // ->get();
     }
 
     /**

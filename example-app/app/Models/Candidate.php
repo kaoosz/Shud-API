@@ -20,8 +20,7 @@ class Candidate extends Model
         return 'NM_URNA_CANDIDATO';
     }
 
-    public function votesneighborhood() :HasMany
-    //public function bairro2020() :HasMany
+    public function bairro2020() :HasMany
     {
        return $this->hasMany(VotesNeighborhood::class,'NM_VOTAVEL')// local key?= primary key
        ->select("NM_VOTAVEL","NR_VOTAVEL","ANO_ELEICAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
@@ -31,14 +30,12 @@ class Candidate extends Model
     {
         return $this->hasMany(Votesneighborhood_2018::class,'NM_VOTAVEL')// local key?= primary key
         ->select("NM_VOTAVEL","NR_VOTAVEL","ANO_ELEICAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
-
         ->orderByDesc('QT_VOTOS');
     }
     public function bairro2016() :HasMany
     {
         return $this->hasMany(Votesneighborhood_2016::class,'NM_VOTAVEL')// local key?= primary key
         ->select("NM_VOTAVEL","NR_VOTAVEL","DT_GERACAO_HH_GERACAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
-        //->select("NM_VOTAVEL")
         ->orderByDesc('QT_VOTOS');
     }
     public function bairro2014() :HasMany
@@ -104,7 +101,7 @@ class Candidate extends Model
     public function cities2014() :HasMany
     {
         return $this->hasMany(VotesCities_2014::class,'NM_VOTAVEL')
-        //->select("NM_VOTAVEL","NR_VOTAVEL","DT_GERACAO_HH_GERACAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","QT_VOTOS")
+        ->select("NM_VOTAVEL","NR_VOTAVEL","DT_GERACAO_HH_GERACAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","QT_VOTOS")
         ->orderByDesc('QT_VOTOS');
     }
     public function cities2012() :HasMany

@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 # Create engine connection to PostgreSQL
 engine = create_engine("postgresql://"+os.getenv('DB_USERNAME')+":"+os.getenv('DB_PASSWORD')+"@"+os.getenv('DB_HOST')+":"+os.getenv('DB_PORT')+"/"+os.getenv('DB_DATABASE')+"")
 
-df = pd.read_sql_table('bulletins_2012', con=engine, schema="public", index_col="id")
+df = pd.read_sql_table('bulletins_2018', con=engine, schema="public", index_col="id")
 
 # Keep all columns in the resulting dataframe and aggregate sum by "QT_VOTOS" and other columns in sum_columns
 columns = list(df)

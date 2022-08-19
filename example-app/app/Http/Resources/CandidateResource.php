@@ -22,6 +22,7 @@ class CandidateResource extends JsonResource
     {
         //return parent::toArray($request);
 
+        //
         return [
 
 
@@ -34,23 +35,41 @@ class CandidateResource extends JsonResource
             'ANO_ELEICAO' => $this->ANO_ELEICAO,
             'NR_CANDIDATO' => $this->NR_CANDIDATO,
             'CD_ELEICAO' => $this->CD_ELEICAO,
-           // 'ff' => $this->w
-            //'CD_ELEICAO' => $this->when($request->get('show') === 'all', $this->CD_ELEICAO),
-            'votesneighborhood' => $this->whenLoaded('votesneighborhood'),
+
+            'votos_escola' => $this->when($request->get('escola'),function() use($request){
+                if($request->get('UF') and $request->get('escola')){
+                    return $this->whenLoaded($request->get('escola'))->where("NM_MUNICIPIO", request()->get('UF'))->sum('QT_VOTOS');
+                }
+                return $this->whenLoaded($request->get('escola'))->sum('QT_VOTOS');
+            }),
+            'votos_bairro' => $this->when($request->get('bairro'),function() use($request){
+                if($request->get('UF') and $request->get('bairro')){
+                    return $this->whenLoaded($request->get('bairro'))->where("NM_MUNICIPIO", request()->get('UF'))->sum('QT_VOTOS');
+                }
+                return $this->whenLoaded($request->get('bairro'))->sum('QT_VOTOS');
+            }),
+            'votos_cidade' => $this->when($request->get('cidade'),function() use($request){
+                if($request->get('UF') and $request->get('cidade')){
+                    return $this->whenLoaded($request->get('cidade'))->where("NM_MUNICIPIO", request()->get('UF'))->sum('QT_VOTOS');
+                }
+                return $this->whenLoaded($request->get('cidade'))->sum('QT_VOTOS');
+            }),
 
             // BAIRRO
-            'votesneighborhood' => $this->when($request->get('bairro') === 'votesneighborhood',function() use($request){
-                if($request->get('UF') and $request->get('bairro') === 'votesneighborhood'){
-                    return $this->whenLoaded('votesneighborhood')->where("NM_MUNICIPIO", request()->get('UF'));
+            'bairro2020' => $this->when($request->get('bairro') === 'bairro2020',function() use($request){
+                if($request->get('UF') and $request->get('bairro') === 'bairro2020'){
+                    return $this->whenLoaded('bairro2020')->where("NM_MUNICIPIO", request()->get('UF'));
                 }
-                return $this->whenLoaded('votesneighborhood')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->whenLoaded('bairro2020')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
             }),
+
             'bairro2018' => $this->when($request->get('bairro') === 'bairro2018',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2018'){
                     return $this->whenLoaded('bairro2018')->where("NM_MUNICIPIO", request()->get('UF'));
                 }
                 return $this->whenLoaded('bairro2018');
             }),
+
             'bairro2016' => $this->when($request->get('bairro') === 'bairro2016',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2016'){
                     return $this->whenLoaded('bairro2016')->where("NM_MUNICIPIO", request()->get('UF'));
@@ -136,28 +155,6 @@ class CandidateResource extends JsonResource
                 return $this->whenLoaded('cities2012')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
             }),
 
-
-
-
-            // 'schools2012' => $this->when($request->get('ANO') === '2012',function() use($request){
-            //     if($request->get('UF')){
-            //         return $this->whenLoaded('schools2012')->where("NM_MUNICIPIO", request()->get('UF'));
-            //     }else{
-            //         return $this->whenLoaded('schools2012')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
-            //     }
-            // }),
-
-            ///////////////////////////
-            //'schools2020' => $this->whenLoaded('schools2020'),
-
-            //////////////////////////////////////////////////////
-            // 'schools2020' => $this->when($request->get('bairro') === 'schools2020',function() use($request){
-            //     if($request->get('UF') and $request->get('bairro') === 'schools2020'){
-            //         return $this->whenLoaded('schools2020')->where("NM_MUNICIPIO", request()->get('UF'));
-            //     }else{
-            //         return $this->whenLoaded('schools2020');
-            //     }
-            // }),
         ];
 
     }
