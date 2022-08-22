@@ -26,4 +26,5 @@ class VotesCities_2018 extends Model
     {
         return 'NM_VOTAVEL';
     }
+
 }

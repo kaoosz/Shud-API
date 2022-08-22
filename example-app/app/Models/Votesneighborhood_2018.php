@@ -24,4 +24,5 @@ class Votesneighborhood_2018 extends Model
     {
         return 'NM_VOTAVEL';
     }
+
 }

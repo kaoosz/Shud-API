@@ -1,25 +1,71 @@
-http://localhost:8000/api/candidatesRe/candidatesRe?urna=MARCELO ARO
+########
+TODOS OS CANDIDATOS ###############
+################
+http://localhost:8000/api/candidatos
 
-http://localhost:8000/api/candidatesRe/candidatesRe?bairro=bairro2016&urna=MARCELO ARO
+PESSOA ESPECIFICA com todas ELEICOES
 
-
-bairro=votesneighborhood&
-bairro=bairro2018&
-bairro=bairro2016&
-bairro=bairro2014&
-bairro=bairro2012&
-
-CIDADE
-UF=BELO HORIZONTE
-NR_CANDIDATO=3133
-ANO=2014
+http://localhost:8000/api/candidatos/candidatos?urna=MARCELO%20ARO
 
 
-VOTOS POR SCHOOLS
+APENAS ANO E NUMERO DO CANDIDATO E NOME
+http://localhost:8000/api/candidatos/candidatos?urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
 
-escola=schools2016
-E TUDO ACIMA MENOS OS BAIRROS
+#############
+VOTOS POR CIDADE
+#######
+http://localhost:8000/api/candidatos/candidatos?cidade=cities2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+#######
+VOTOS CIDADE POR UF ###
+#######
+http://localhost:8000/api/candidatos/candidatos?UF=BELO HORIZONTE&cidade=cities2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+
+######
+VOTOS ESCOLA ##
+######
+http://localhost:8000/api/candidatos/candidatos?escola=schools2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+######
+VOTOS ESCOLA UF ##
+######
+http://localhost:8000/api/candidatos/candidatos?UF=BELO HORIZONTE&escola=schools2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+
+######
+VOTOS BAIRRO ##
+######
+http://localhost:8000/api/candidatos/candidatos?bairro=bairro2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+######
+VOTOS BAIRRO UF ##
+######
+http://localhost:8000/api/candidatos/candidatos?UF=BELO HORIZONTE&bairro=bairro2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+
+######
+Paginação Exemplo &page=3
+paginação para não ter uma resposta de 30 mil linhas
+serão exibidos 10 resuldatos por pagina....
+######
+http://localhost:8000/api/candidatos/candidatos?bairro=bairro2014&NR_CANDIDATO=3133&ANO=2014&urna=MARCELO ARO&page=3
+######
+
+#OBS SE VOCÊ COLOCAR ANO = 2018 e bairro2014
+#ele irá trazer os dados de 2014
+
+#TODAS FUNÇÔES DE PESQUISA APENAS MUDAR O ANO QUE IRA FUNCIONAR CORRETAMENTE
+
+urna=MARCELO%20ARO ou urna=MARCELO ARO  ## ira funcionar normalmente.. é nome do candidato
 
 
-cidade=cities2020
-e ano
+bairro=bairro2014 ou bairro=bairro2018
+
+escola=schools2014 ou escola=schools2018
+
+cidade=cities2014 ou cidade=cities2018
+
+
+NR_CANDIDATO=3133   ## numero da urna do candidato
+
+ANO=2014 ou ANO=2018  ## ano da eleição alvo da pesquisa
+
+UF=BELO HORIZONTE ou UF=PARAOPEBA  ## cidade alvo é o MUNICIPIO
+
+page=3 ## Paginação para não ter 30 mil linhas de jsoon de registros
+

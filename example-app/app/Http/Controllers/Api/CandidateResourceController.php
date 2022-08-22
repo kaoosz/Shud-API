@@ -14,17 +14,11 @@ class CandidateResourceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private $candidate;
-
-    public function __construct(Candidate $candidate)
-    {
-        $this->candidate = $candidate;
-    }
 
     public function index(Candidate $candidate)
     {
 
-        $can = Candidate::query()->paginate();//->when(request()->get('show') === 'bairro2018',
+        $can = Candidate::query()->paginate(10);//->when(request()->get('show') === 'bairro2018',
         //fn($query) => $query->with('bairro2018'))->paginate(3);
 
         return CandidateResource::collection($can);
@@ -51,12 +45,9 @@ class CandidateResourceController extends Controller
     public function show(Candidate $candidate,Request $request)
     {
 
-
-        // $can = Candidate::query()
-        // ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate();//->get();
         if(!request()->get('ANO') or !request()->get('NR_CANDIDATO') ){
             $can = Candidate::query()
-            ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate();
+            ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate(10);
         }
 
         if(request()->get('ANO')){
@@ -82,7 +73,7 @@ class CandidateResourceController extends Controller
             ->where([['NM_URNA_CANDIDATO',request()->get('urna')],
             ['ANO_ELEICAO',request()->get('ANO')],
             ['NR_CANDIDATO',request()->get('NR_CANDIDATO')]]
-            )->paginate();//->get();//->get();
+        )->get();
         }
 
         return CandidateResource::collection($can);

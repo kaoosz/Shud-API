@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Candidate;
+
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
 
 
 
@@ -20,11 +19,10 @@ class CandidateResource extends JsonResource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
 
-        //
+
+
         return [
-
 
             'NM_CANDIDATO' => $this->NM_CANDIDATO,
             'NM_URNA_CANDIDATO' => $this->NM_URNA_CANDIDATO,
@@ -35,6 +33,7 @@ class CandidateResource extends JsonResource
             'ANO_ELEICAO' => $this->ANO_ELEICAO,
             'NR_CANDIDATO' => $this->NR_CANDIDATO,
             'CD_ELEICAO' => $this->CD_ELEICAO,
+            //'bairro2018' => $this->bairro2018()->paginate(5),
 
             'votos_escola' => $this->when($request->get('escola'),function() use($request){
                 if($request->get('UF') and $request->get('escola')){
@@ -58,104 +57,110 @@ class CandidateResource extends JsonResource
             // BAIRRO
             'bairro2020' => $this->when($request->get('bairro') === 'bairro2020',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2020'){
-                    return $this->whenLoaded('bairro2020')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->bairro2020()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('bairro2020')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->bairro2020()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
 
             'bairro2018' => $this->when($request->get('bairro') === 'bairro2018',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2018'){
-                    return $this->whenLoaded('bairro2018')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->bairro2018()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('bairro2018');
+                return $this->bairro2018()->paginate(10);
             }),
 
             'bairro2016' => $this->when($request->get('bairro') === 'bairro2016',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2016'){
-                    return $this->whenLoaded('bairro2016')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->bairro2016()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('bairro2016');
+                return $this->bairro2016()->paginate(10);
             }),
             'bairro2014' => $this->when($request->get('bairro') === 'bairro2014',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2014'){
-                    return $this->whenLoaded('bairro2014')->where("NM_MUNICIPIO", request()->get('UF'));//->take(1);
+                    return $this->bairro2014()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('bairro2014');//->paginate(1);//->take(1);
+                return $this->bairro2014()->paginate(10);
             }),
             'bairro2012' => $this->when($request->get('bairro') === 'bairro2012',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2012'){
-                    return $this->whenLoaded('bairro2012')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->bairro2012()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('bairro2012');
+                return $this->bairro2012()->paginate(10);
             }),
             ///////////////////////////////////////////////////
             // ESCOLAS
             'schools2020' => $this->when($request->get('escola') === 'schools2020',function() use($request){
                 if($request->get('UF') and $request->get('escola') === 'schools2020'){
-                    return $this->whenLoaded('schools2020')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->schools2020()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('schools2020')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->schools2020()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'schools2018' => $this->when($request->get('escola') === 'schools2018',function() use($request){
                 if($request->get('UF') and $request->get('escola') === 'schools2018'){
-                    return $this->whenLoaded('schools2018')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->schools2018()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('schools2018')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->schools2018()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'schools2016' => $this->when($request->get('escola') === 'schools2016',function() use($request){
                 if($request->get('UF') and $request->get('escola') === 'schools2016'){
-                    return $this->whenLoaded('schools2016')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->schools2016()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('schools2016')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->schools2016()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'schools2014' => $this->when($request->get('escola') === 'schools2014',function() use($request){
                 if($request->get('UF') and $request->get('escola') === 'schools2014'){
-                    return $this->whenLoaded('schools2014')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->schools2014()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('schools2014')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->schools2014()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'schools2012' => $this->when($request->get('escola') === 'schools2012',function() use($request){
                 if($request->get('UF') and $request->get('escola') === 'schools2012'){
-                    return $this->whenLoaded('schools2012')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->schools2012()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('schools2012')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->schools2012()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
 
             // CITIES
             // CIDADES
-
             'cities2020' => $this->when($request->get('cidade') === 'cities2020',function() use($request){
                 if($request->get('UF') and $request->get('cidade') === 'cities2020'){
-                    return $this->whenLoaded('cities2020')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->cities2020()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('cities2020')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->cities2020()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'cities2018' => $this->when($request->get('cidade') === 'cities2018',function() use($request){
                 if($request->get('UF') and $request->get('cidade') === 'cities2018'){
-                    return $this->whenLoaded('cities2018')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->cities2018()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('cities2018')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->cities2018()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'cities2016' => $this->when($request->get('cidade') === 'cities2016',function() use($request){
                 if($request->get('UF') and $request->get('cidade') === 'cities2016'){
-                    return $this->whenLoaded('cities2016')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->cities2016()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('cities2016')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->cities2016()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'cities2014' => $this->when($request->get('cidade') === 'cities2014',function() use($request){
                 if($request->get('UF') and $request->get('cidade') === 'cities2014'){
-                    return $this->whenLoaded('cities2014')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->cities2014()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('cities2014')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->cities2014()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
             'cities2012' => $this->when($request->get('cidade') === 'cities2012',function() use($request){
                 if($request->get('UF') and $request->get('cidade') === 'cities2012'){
-                    return $this->whenLoaded('cities2012')->where("NM_MUNICIPIO", request()->get('UF'));
+                    return $this->cities2012()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
                 }
-                return $this->whenLoaded('cities2012')->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'));
+                return $this->cities2012()->where("NR_VOTAVEL", request()->get('NR_CANDIDATO'))->paginate(10);
             }),
+
 
         ];
 
+
     }
+
+
+
+
+
 }
