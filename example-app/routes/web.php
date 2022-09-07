@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiConsume;
 use App\Http\Controllers\CandidateController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/',[ApiConsume::class,'test']);
+Route::get('apiconsume',[ApiConsume::class,'test']);
 
 Route::get('/candidates',[CandidateController::class,'index']);
 
 
-
-Route::get("JOSEF",function(){
-    return view('JOSEF');
-});

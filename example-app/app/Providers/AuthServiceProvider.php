@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Notifications\ResetPassword;
+
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -24,7 +26,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
+        $frontEndUrl = env('FRONTEND_URL');
+        $this->setFrontEndUrlInResetPassword($frontEndUrl);
+    }
+    protected function setFrontEndUrlInResetPassword($frontEndUrl = '')
+    {
+        ResetPassword::createUrlUsing(function($user,string $token) use($frontEndUrl)
+        {
+            return $frontEndUrl . '/password/email/reset?token=' . $token;
+        });
     }
 }

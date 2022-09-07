@@ -19,9 +19,6 @@ class CandidateResource extends JsonResource
      */
     public function toArray($request)
     {
-
-
-
         return [
 
             'NM_CANDIDATO' => $this->NM_CANDIDATO,

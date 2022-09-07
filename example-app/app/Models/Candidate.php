@@ -40,7 +40,8 @@ class Candidate extends Model
     }
     public function bairro2014() :HasMany
     {
-        return $this->hasMany(Votesneighborhood_2014::class,'NM_VOTAVEL')// local key?= primary key
+        return $this->hasMany(Votesneighborhood_2014::class,'NM_VOTAVEL')// ADICIONEI NM_VOTAVEL COMO LOCAL KEY TMB MAS NAO PRECISA
+        // É USADA SE ID NAO TIVER DEFENIDO COMO PRIMARY KEY.
         ->select("NM_VOTAVEL","NR_VOTAVEL","DT_GERACAO_HH_GERACAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
         ->orderByDesc('QT_VOTOS');
     }
