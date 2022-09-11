@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VotesCitiesResource2012 extends JsonResource
+class VotesBairro2020 extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,14 +14,15 @@ class VotesCitiesResource2012 extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             'NM_VOTAVEL' => $this->NM_VOTAVEL,
-            'NR_VOTAVEL' => $this->NR_VOTAVEL,
             'DT_GERACAO_HH_GERACAO' => $this->DT_GERACAO_HH_GERACAO,
             'DS_CARGO_PERGUNTA' => $this->DS_CARGO_PERGUNTA,
             'NM_MUNICIPIO' => $this->NM_MUNICIPIO,
+            'NM_BAIRRO' => $this->NM_BAIRRO,
             'QT_VOTOS' => $this->QT_VOTOS,
         ];
+
         return parent::toArray($request);
     }
 }

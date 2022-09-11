@@ -25,4 +25,9 @@ class Votesneighborhood extends Model
     {
         return 'NM_VOTAVEL';
     }
+
+    public function idk()
+    {
+        $this->Votesneighborhood::class;
+    }
 }
