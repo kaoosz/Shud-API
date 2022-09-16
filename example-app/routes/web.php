@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CandidateResourceController;
 use App\Http\Controllers\ApiConsume;
 use App\Http\Controllers\CandidateController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,4 @@ Route::get('apiconsume',[ApiConsume::class,'test']);
 Route::get('/candidates',[CandidateController::class,'index']);
 
 
+Route::get('jsontocsv',[CandidateResourceController::class,'GeraPython']);

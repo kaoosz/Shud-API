@@ -2,10 +2,12 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Str;
+
+
 
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
 
 
 
@@ -23,7 +25,10 @@ class CandidateResource extends JsonResource
 
             'NM_CANDIDATO' => $this->NM_CANDIDATO,
             'NM_URNA_CANDIDATO' => $this->NM_URNA_CANDIDATO,
-            'NR_CPF_CANDIDATO' => $this->NR_CPF_CANDIDATO,
+            //'NR_CPF_CANDIDATO' => $this->NR_CPF_CANDIDATO,
+            'NR_CPF_CANDIDATO' => $this->when(Str::length($this->NR_CPF_CANDIDATO) < 11,function(){
+                return '0'.$this->NR_CPF_CANDIDATO;
+            },$this->NR_CPF_CANDIDATO),
             'SG_UF' => $this->SG_UF,
             'NM_UE' => $this->NM_UE,
             'DS_CARGO' => $this->DS_CARGO,
@@ -61,9 +66,9 @@ class CandidateResource extends JsonResource
 
             'bairro2018' => $this->when($request->get('bairro') === 'bairro2018',function() use($request){
                 if($request->get('UF') and $request->get('bairro') === 'bairro2018'){
-                    return $this->bairro2018()->where("NM_MUNICIPIO", request()->get('UF'))->paginate(10);
+                    return $this->bairro2018()->where("NM_MUNICIPIO", request()->get('UF'))->take(2)->get();//->paginate(10);
                 }
-                return $this->bairro2018()->paginate(10);
+                return $this->bairro2018()->take(2)->get();//paginate(10);
             }),
 
             'bairro2016' => $this->when($request->get('bairro') === 'bairro2016',function() use($request){

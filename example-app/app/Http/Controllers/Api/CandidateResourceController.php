@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CandidateResource;
 use App\Models\Candidate;
+use Illuminate\Support\Str;
+
+
+
+
+
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class CandidateResourceController extends Controller
 {
@@ -17,6 +25,36 @@ class CandidateResourceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+   // >>> os.path.dirname(sys.executable)
+   // 'C:\\Users\\Wenyx\\AppData\\Local\\Programs\\Python\\Python310'
+    public function GeraPython()
+    {
+        //dd('agora ffssaqsqs');
+        $comando = exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\gera.py");
+
+        var_dump($comando);
+
+
+        //$comando = shell_exec('cd C:\Users\Wenyx\Csvs && C:\Users\Wenyx\Csvs\Gerador.py');//ele cria pasta abre cmd mas n executa
+
+        dd('nao passa');
+
+
+
+        $process = new Process(['python','C:\Users\Wenyx\Csvs\Gerador.py'],null,['ENV_VAR_NAME' =>
+        'C:\Users\Wenyx\AppData\Local\Programs\Python\Python310']);
+
+        $process->run();
+
+        if (!$process->isSuccessful()){
+            throw new ProcessFailedException($process);
+        }
+        $result = $process->getOutput();
+
+        // $process = Process::fromShellCommandline('inkscape --version');
+
+
+    }
 
     public function index(Candidate $candidate)
     {
@@ -81,8 +119,26 @@ class CandidateResourceController extends Controller
 
         // $fun = $request->only(['ANO','NR_CANDIDATO']);
 
-        // dd($fun);
+        //dd($can);
 
+
+        if(request()->get('csv')){
+            // $ApiPython = $request->fullUrl();
+            // //$ApiPython = $request->fullUrlWithoutQuery;
+
+            // $two = '"http://localhost:8000/api/candidatos/candidatos?ANO=2018&NR_CANDIDATO=3133&csv=csv&urna=MARCELO%20ARO"';
+            // $twos = "" .$two;
+
+            //$vv = $request->fullUrlWithQuery(['type' => 'phone']);
+
+
+            //$comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\hello.py {$twos} ");
+            $comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\minhaapi.py");
+
+
+            var_dump($comando);
+            //dd($two,$ApiPython,$twos);
+        }
         return CandidateResource::collection($can);
 
     }

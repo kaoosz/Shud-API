@@ -48,10 +48,10 @@ class TopVotosBairro extends Controller
                 ->when(request()->only('top_bairro'),function($query){
                     return $query->take(1000);
                 })
+
                 ->get();
 
                 return VotesBairro2020::collection($var->unique('NM_VOTAVEL')->take(request()->get('amount')));
-
             }
 
         }

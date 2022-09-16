@@ -48,9 +48,13 @@ Route::post('login',[AuthController::class,'login']);
 Route::post('/password/email',[AuthController::class,'sendPasswordResetLinkEmail']);
 Route::post('/password/reset',[AuthController::class,'resetPassword']);
 
+Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
+Route::post('candidatosGera',[CandidateResourceController::class,'GeraPython']);
+
+
 Route::group(['middleware' => ['auth:sanctum']],function(){
 
-    Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
+    //Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
 });
 
 Route::get('creat',function(){
