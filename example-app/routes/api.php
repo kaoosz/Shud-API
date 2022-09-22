@@ -39,6 +39,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
+Route::get('csvtestone',function(){
+
+    #shell_exec("python3 /home/guilherme/Development/Shud-API/example-app/resources/filepython/Geracsv/Gerador.py");
+    exec("python3 /home/guilherme/Development/Shud-API/example-app/resources/filepython/Geracsv/Gerador.py");
+
+});
+
 Route::get('candidatosMaisVotadosCidade',[TopVotosCidade::class,'CidadeMaisVotada']);//->only('show','index');
 Route::get('candidatosMaisVotadosEscola',[TopVotosEscola::class,'EscolaMaisVotada']);//->only('show','index');
 Route::get('candidatosMaisVotadosBairro',[TopVotosBairro::class,'BairroMaisVotada']);//->only('show','index');

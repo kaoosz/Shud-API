@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 # Create engine connection to PostgreSQL
 engine = create_engine("postgresql://"+os.getenv('DB_USERNAME')+":"+os.getenv('DB_PASSWORD')+"@"+os.getenv('DB_HOST')+":"+os.getenv('DB_PORT')+"/"+os.getenv('DB_DATABASE')+"")
 
-df = pd.read_sql_table('bulletins_2018', con=engine, schema="public", index_col="id")
+df = pd.read_sql_table('bulletins_2012', con=engine, schema="public", index_col="id")
 
 # Keep all columns in the resulting dataframe and aggregate sum by "QT_VOTOS" and other columns in sum_columns
 columns = list(df)
@@ -31,7 +31,7 @@ df = df.groupby(['NR_ZONA', 'NR_LOCAL_VOTACAO', "NR_VOTAVEL"], as_index=False, d
 # Reorganize columns order
 # 2016 NM_PARTIDO não existe
 #column_order = ["NM_VOTAVEL", "NR_VOTAVEL", "SG_PARTIDO", "NR_PARTIDO", "QT_VOTOS", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_SECAO", "NM_MUNICIPIO", "SG_UF"]
-column_order = ["NM_VOTAVEL", "NR_VOTAVEL", "SG_PARTIDO", "NR_PARTIDO", "QT_VOTOS", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_SECAO", "NM_MUNICIPIO", "SG_UF"]
+column_order = ["NM_VOTAVEL", "NR_VOTAVEL", "SG_PARTIDO", "NR_PARTIDO", "QT_VOTOS", "NR_ZONA", "NR_SECAO", "NM_MUNICIPIO", "SG_UF"]
 for column in reversed(column_order):
     df = df[ [column] + [ col for col in df.columns if col != column ] ]
 
@@ -42,4 +42,4 @@ df = df.sort_values(by=['QT_VOTOS', "NM_VOTAVEL"], ascending=False)
 df.drop(['NR_SECAO'], axis=1, inplace=True)
 
 # Upload dataframe to SQL server
-df.to_sql("TESTvotes_schools_2012", con=engine, schema="public", if_exists='replace', index="id")
+df.to_sql("votes_schools_2012_test", con=engine, schema="public", if_exists='replace', index="id")

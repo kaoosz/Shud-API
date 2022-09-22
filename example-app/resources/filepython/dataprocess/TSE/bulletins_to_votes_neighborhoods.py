@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 # Create engine connection to PostgreSQL
 engine = create_engine("postgresql://"+os.getenv('DB_USERNAME')+":"+os.getenv('DB_PASSWORD')+"@"+os.getenv('DB_HOST')+":"+os.getenv('DB_PORT')+"/"+os.getenv('DB_DATABASE')+"")
 
-df1 = pd.read_sql_table('bulletins_2016', con=engine, schema="public", index_col="id")
+df1 = pd.read_sql_table('bulletins_2012', con=engine, schema="public", index_col="id")
 df2 = pd.read_sql_table('schools', con=engine, schema="public", index_col="id")
 
 df = df1.merge(df2, on=['NR_ZONA', 'NR_LOCAL_VOTACAO'], how='outer', suffixes=('', '_df2'))
@@ -28,7 +28,8 @@ for column_name in columns:
 df = df.groupby(["NR_VOTAVEL", "NM_MUNICIPIO", "NM_BAIRRO"], as_index=False).agg(agg_dict) # FIX IF NEIGHBORHOOD IS NULL DO NOT GO TO DATABASE
 
 # # Drop all useless columns to keep disk space
-useless_columns = ["SG_UF_df2", "NM_MUNICIPIO_df2", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_SECAO", "NR_URNA_EFETIVADA", "CD_MUNICIPIO_df2", "DS_TIPO_VOTAVEL", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NR_CEP"]
+#useless_columns = ["SG_UF_df2", "NM_MUNICIPIO_df2", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_SECAO", "NR_URNA_EFETIVADA", "CD_MUNICIPIO_df2", "DS_TIPO_VOTAVEL", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NR_CEP"]
+useless_columns = ["SG_UF_df2", "NM_MUNICIPIO_df2", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_SECAO", "NR_URNA_EFETIVADA", "CD_MUNICIPIO_df2", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NR_CEP"]
 df.drop(useless_columns, axis=1, inplace=True)
 
 # Reorganize columns order
@@ -40,4 +41,4 @@ for column in reversed(column_order):
 df = df.sort_values(by=["NM_BAIRRO", "QT_VOTOS"], ascending=False)
 
 # Upload dataframe to SQL server
-df.to_sql("bairro2016", con=engine, schema="public", if_exists='replace', index="id")
+df.to_sql("bairro2012", con=engine, schema="public", if_exists='replace', index="id")

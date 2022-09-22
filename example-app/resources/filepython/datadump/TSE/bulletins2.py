@@ -19,29 +19,29 @@ pd.set_option("display.max_columns", None)
 
 # Read CSV files
 files = {
-    # "2020":{
-    #     "files":[
-    #         #"/tmp/",
-    #         "/tmp/bweb_1t_MG_181120201549.csv",
-    #         #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2020/resultados/boletins_urna/1_turno/bweb_1t_MG_181120201549.csv",
-    #         #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2020/resultados/boletins_urna/2_turno/bweb_2t_MG_301120201245.csv",
-    #     ]
-    # },
+    "2020":{
+        "files":[
+            #"/tmp/",
+            "/tmp/bweb_1t_MG_181120201549.csv",
+            #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2020/resultados/boletins_urna/1_turno/bweb_1t_MG_181120201549.csv",
+            #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2020/resultados/boletins_urna/2_turno/bweb_2t_MG_301120201245.csv",
+        ]
+    },
 
-    # "2018":{
-    #     "files":[
-    #         "/tmp/bweb_1t_MG_101020181954.csv",
-    #         #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2018/resultados/boletins_urna/2_turno/bweb_2t_MG_301020181749.csv"
-    #     ]
-    # },
+    "2018":{
+        "files":[
+            "/tmp/bweb_1t_MG_101020181954.csv",
+            #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2018/resultados/boletins_urna/2_turno/bweb_2t_MG_301020181749.csv"
+        ]
+    },
 
-    # "2016":{
-    #     "col_names":["DT_GERACAO", "HH_GERACAO", "CD_PLEITO", "CD_ELEICAO", "SG_UF", "CD_CARGO_PERGUNTA", "DS_CARGO_PERGUNTA", "NR_ZONA", "NR_SECAO", "NR_LOCAL_VOTACAO", "NR_PARTIDO", "SG_PARTIDO", "CD_MUNICIPIO", "NM_MUNICIPIO", "DT_BU_RECEBIDO", "QT_APTOS", "QT_ABSTENCOES", "QT_COMPARECIMENTO", "CD_TIPO_ELEICAO", "CD_TIPO_URNA", "DS_TIPO_URNA", "NR_VOTAVEL", "NM_VOTAVEL", "QT_VOTOS", "CD_TIPO_VOTAVEL", "NR_URNA_EFETIVADA", "CD_CARGA_1_URNA_EFETIVADA", "CD_CARGA_2_URNA_EFETIVADA", "DT_CARGA_URNA_EFETIVADA", "CD_FLASHCARD_URNA_EFETIVADA", "DS_CARGO_PERGUNTA_SECAO"],
-    #     "files":[
-    #         "/tmp/bweb_1t_MG_04102016184853.txt",
-    #         #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2016/resultados/boletins_urna/2_turno/bweb_2t_MG_31102016133815.txt"
-    #     ]
-    # },
+    "2016":{
+        "col_names":["DT_GERACAO", "HH_GERACAO", "CD_PLEITO", "CD_ELEICAO", "SG_UF", "CD_CARGO_PERGUNTA", "DS_CARGO_PERGUNTA", "NR_ZONA", "NR_SECAO", "NR_LOCAL_VOTACAO", "NR_PARTIDO", "SG_PARTIDO", "CD_MUNICIPIO", "NM_MUNICIPIO", "DT_BU_RECEBIDO", "QT_APTOS", "QT_ABSTENCOES", "QT_COMPARECIMENTO", "CD_TIPO_ELEICAO", "CD_TIPO_URNA", "DS_TIPO_URNA", "NR_VOTAVEL", "NM_VOTAVEL", "QT_VOTOS", "CD_TIPO_VOTAVEL", "NR_URNA_EFETIVADA", "CD_CARGA_1_URNA_EFETIVADA", "CD_CARGA_2_URNA_EFETIVADA", "DT_CARGA_URNA_EFETIVADA", "CD_FLASHCARD_URNA_EFETIVADA", "DS_CARGO_PERGUNTA_SECAO"],
+        "files":[
+            "/tmp/bweb_1t_MG_04102016184853.txt",
+            #"/media/abreufilho/HD - Abreu Filho/Shud/shud_spaces/eleicoes/2016/resultados/boletins_urna/2_turno/bweb_2t_MG_31102016133815.txt"
+        ]
+    },
 
     "2014":{
         "col_names":["DT_GERACAO", "HH_GERACAO", "CD_PLEITO", "CD_ELEICAO", "SG_UF", "CD_CARGO_PERGUNTA", "DS_CARGO_PERGUNTA", "NR_ZONA", "NR_SECAO", "NR_LOCAL_VOTACAO", "NR_PARTIDO", "SG_PARTIDO", "CD_MUNICIPIO", "NM_MUNICIPIO", "DT_BU_RECEBIDO", "QT_APTOS", "QT_ABSTENCOES", "QT_COMPARECIMENTO", "CD_TIPO_ELEICAO", "CD_TIPO_URNA", "DS_TIPO_URNA", "NR_VOTAVEL", "NM_VOTAVEL", "QT_VOTOS", "CD_TIPO_VOTAVEL", "NR_URNA_EFETIVADA", "CD_CARGA_1_URNA_EFETIVADA", "CD_CARGA_2_URNA_EFETIVADA", "DT_CARGA_URNA_EFETIVADA", "CD_FLASHCARD_URNA_EFETIVADA", "DS_CARGO_PERGUNTA_SECAO"],

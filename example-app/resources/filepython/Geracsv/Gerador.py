@@ -1,5 +1,9 @@
 import requests
 import pandas as pd
+import sys
+
+
+#para = sys.argv[1]
 
 headers = {
     'Accept': 'application/json',
@@ -13,27 +17,20 @@ params = {
     'ANO':'2018',
     'NR_CANDIDATO':'3133',
 }
-coll = [
-            "NM_VOTAVEL",
-            "NR_VOTAVEL",
-            "ANO_ELEICAO",
-            "DS_CARGO_PERGUNTA",
-            "NM_MUNICIPIO",
-            "NM_BAIRRO",
-            "QT_VOTOS",
-        ]
 
-request = requests.get('http://127.0.0.1:8000/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=MARCELO ARO&NR_CANDIDATO=3133',
- params=params, headers=headers)
+#request = requests.get('http://localhost:8000/api/candidatos')
 
-response = request.json()
+# response = request.json()
 
 
+# dt = pd.DataFrame(response['data'])
+# dt.to_csv('meu csv')
 
-data = request.json()
-if 'data' in data:
-    data = data['data']
 
-df = pd.DataFrame(data[0]['bairro2018'])
-df.to_csv('tonin.csv')
+# data = request.json()
+# if 'data' in data:
+#      data = data['data']
+
+# df = pd.DataFrame(data[0]['bairro2018'])
+# df.to_csv('toninsasas.csv')
 

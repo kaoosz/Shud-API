@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CandidateResource;
 use App\Models\Candidate;
@@ -38,7 +39,6 @@ class CandidateResourceController extends Controller
         //$comando = shell_exec('cd C:\Users\Wenyx\Csvs && C:\Users\Wenyx\Csvs\Gerador.py');//ele cria pasta abre cmd mas n executa
 
         dd('nao passa');
-
 
 
         $process = new Process(['python','C:\Users\Wenyx\Csvs\Gerador.py'],null,['ENV_VAR_NAME' =>
@@ -122,23 +122,27 @@ class CandidateResourceController extends Controller
         //dd($can);
 
 
-        if(request()->get('csv')){
-            // $ApiPython = $request->fullUrl();
-            // //$ApiPython = $request->fullUrlWithoutQuery;
+        // if(request()->get('csv')){
+        //     // $ApiPython = $request->fullUrl();
+        //     // //$ApiPython = $request->fullUrlWithoutQuery;
 
-            // $two = '"http://localhost:8000/api/candidatos/candidatos?ANO=2018&NR_CANDIDATO=3133&csv=csv&urna=MARCELO%20ARO"';
-            // $twos = "" .$two;
+        //     // $two = '"http://localhost:8000/api/candidatos/candidatos?ANO=2018&NR_CANDIDATO=3133&csv=csv&urna=MARCELO%20ARO"';
+        //     // $twos = "" .$two;
 
-            //$vv = $request->fullUrlWithQuery(['type' => 'phone']);
+        //     //$vv = $request->fullUrlWithQuery(['type' => 'phone']);
+
+        //     $var = '' .$can->toJson();
+        //     dd($var); 
+        //     //$comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\hello.py {$twos} ");
+        //     $comando = shell_exec("python3 /home/guilherme/Development/Shud-API/example-app/resources/filepython/Geracsv/Gerador.py {$can}");
 
 
-            //$comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\hello.py {$twos} ");
-            $comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\minhaapi.py");
+
+        //     var_dump($comando);
+        //     //dd($two,$ApiPython,$twos);
+        // }
 
 
-            var_dump($comando);
-            //dd($two,$ApiPython,$twos);
-        }
         return CandidateResource::collection($can);
 
     }

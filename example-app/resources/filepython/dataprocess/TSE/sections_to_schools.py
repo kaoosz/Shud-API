@@ -18,6 +18,7 @@ columns = list(df)
 agg_dict = {}
 for column_name in columns:
     agg_dict[column_name] = "first"
+#df = df.groupby(["NR_ZONA", "NR_LOCAL_VOTACAO"], as_index=False).agg(agg_dict)
 df = df.groupby(["NR_ZONA", "NR_LOCAL_VOTACAO"], as_index=False).agg(agg_dict)
 
 # Sort rows by specific columns
