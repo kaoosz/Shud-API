@@ -10,11 +10,6 @@ use Illuminate\Support\Str;
 
 
 
-
-
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
@@ -26,42 +21,10 @@ class CandidateResourceController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-   // >>> os.path.dirname(sys.executable)
-   // 'C:\\Users\\Wenyx\\AppData\\Local\\Programs\\Python\\Python310'
-    public function GeraPython()
-    {
-        //dd('agora ffssaqsqs');
-        $comando = exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\gera.py");
-
-        var_dump($comando);
-
-
-        //$comando = shell_exec('cd C:\Users\Wenyx\Csvs && C:\Users\Wenyx\Csvs\Gerador.py');//ele cria pasta abre cmd mas n executa
-
-        dd('nao passa');
-
-
-        $process = new Process(['python','C:\Users\Wenyx\Csvs\Gerador.py'],null,['ENV_VAR_NAME' =>
-        'C:\Users\Wenyx\AppData\Local\Programs\Python\Python310']);
-
-        $process->run();
-
-        if (!$process->isSuccessful()){
-            throw new ProcessFailedException($process);
-        }
-        $result = $process->getOutput();
-
-        // $process = Process::fromShellCommandline('inkscape --version');
-
-
-    }
-
     public function index(Candidate $candidate)
     {
 
-        $can = Candidate::query()->paginate(10);//->when(request()->get('show') === 'bairro2018',
-        //fn($query) => $query->with('bairro2018'))->paginate(3);
-
+        $can = Candidate::query()->paginate(10);
         return CandidateResource::collection($can);
 
     }
@@ -117,33 +80,38 @@ class CandidateResourceController extends Controller
         )->get();
         }
 
-        // $fun = $request->only(['ANO','NR_CANDIDATO']);
 
-        //dd($can);
+        if(request()->get('csv')){
+
+               
+
+               $ApiPython = $request->fullUrl();
+
+               //$two = "http://142.93.244.160/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=MARCELO%20ARO&NR_CANDIDATO=3133";
+               //$two = "http://142.93.244.160/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=LENINHA&NR_CANDIDATO=13456";
+               
+               //$two = "http://142.93.244.160/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=JORNALISTA%20CARLOS%20VIANA&NR_CANDIDATO=310";
 
 
-        // if(request()->get('csv')){
-        //     // $ApiPython = $request->fullUrl();
-        //     // //$ApiPython = $request->fullUrlWithoutQuery;
+                
 
-        //     // $two = '"http://localhost:8000/api/candidatos/candidatos?ANO=2018&NR_CANDIDATO=3133&csv=csv&urna=MARCELO%20ARO"';
-        //     // $twos = "" .$two;
 
-        //     //$vv = $request->fullUrlWithQuery(['type' => 'phone']);
+                $novo = Str::replace('&','-',$ApiPython);
 
-        //     $var = '' .$can->toJson();
-        //     dd($var); 
+                #dd($two,$novo);
+
         //     //$comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\hello.py {$twos} ");
-        //     $comando = shell_exec("python3 /home/guilherme/Development/Shud-API/example-app/resources/filepython/Geracsv/Gerador.py {$can}");
+               $comando = exec("python3 /home/guilherme/Development/Shud-API/example-app/public/Gerador.py {$novo}");
 
 
 
-        //     var_dump($comando);
-        //     //dd($two,$ApiPython,$twos);
-        // }
-
-
+               var_dump($comando);
+               //dd($two);
+        }
         return CandidateResource::collection($can);
+
+    }
+    public function getcsv(){
 
     }
 

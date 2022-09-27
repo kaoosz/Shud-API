@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Votesneighborhood_2018 extends Model
 {
     use HasFactory;
+    //protected $table = 'bairro2018';
     protected $table = 'votes_neighborhoods_2018';
     protected $primaryKey = 'NM_VOTAVEL';
     public $incrementing = false;

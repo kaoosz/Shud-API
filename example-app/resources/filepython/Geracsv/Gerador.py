@@ -19,8 +19,14 @@ params = {
 }
 
 #request = requests.get('http://localhost:8000/api/candidatos')
+request = requests.get('http://142.93.244.160/api/candidatos')
 
-# response = request.json()
+response = request.json()
+
+#print(response)
+
+dt = pd.DataFrame(response['data'])
+dt.to_csv('mine.csv')
 
 
 # dt = pd.DataFrame(response['data'])
