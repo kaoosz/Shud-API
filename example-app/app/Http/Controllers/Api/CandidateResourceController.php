@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CandidateResource;
 use App\Models\Candidate;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Response;
 
 
 
@@ -48,13 +49,36 @@ class CandidateResourceController extends Controller
      */
     public function show(Candidate $candidate,Request $request)
     {
+        if(request()->get('csv')){
+            var_dump('csv');
+
+            $ApiPython = $request->fullUrl();
+            $two = "http://142.93.244.160/api/candidatos/candidatos?urna=MARCELO ARO&NR_CANDIDATO=3133&ANO=2018&bairro=bairro2018&csv=csv";
+            $code = base64_encode($two);
+
+            $comando = exec("python3 /home/guilherme/Development/Shud-API/example-app/public/Gerador.py {$code}");
+
+            var_dump($comando);
+            
+            $file = public_path()."/outpu.csv";
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+            return Response::download($file, 'outpu.csv', $headers);
+
+            return 'Sucess Csv';
+               
+        }
 
         if(!request()->get('ANO') or !request()->get('NR_CANDIDATO') ){
+            var_dump('simple');
             $can = Candidate::query()
             ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate(10);
         }
 
         if(request()->get('ANO')){
+            var_dump('relacao');
+
             $can = Candidate::query()
             ->when(request()->get('escola') === 'schools2020',fn($query) => $query->with('schools2020'))
             ->when(request()->get('escola') === 'schools2018',fn($query) => $query->with('schools2018'))
@@ -77,37 +101,13 @@ class CandidateResourceController extends Controller
             ->where([['NM_URNA_CANDIDATO',request()->get('urna')],
             ['ANO_ELEICAO',request()->get('ANO')],
             ['NR_CANDIDATO',request()->get('NR_CANDIDATO')]]
-        )->get();
+            )->get();
+
+            //return CandidateResource::collection($can);
         }
 
 
-        if(request()->get('csv')){
-
-               
-
-               $ApiPython = $request->fullUrl();
-
-               //$two = "http://142.93.244.160/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=MARCELO%20ARO&NR_CANDIDATO=3133";
-               //$two = "http://142.93.244.160/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=LENINHA&NR_CANDIDATO=13456";
-               
-               //$two = "http://142.93.244.160/api/candidatos/candidatos?bairro=bairro2018&ANO=2018&urna=JORNALISTA%20CARLOS%20VIANA&NR_CANDIDATO=310";
-
-
-                
-
-
-                $novo = Str::replace('&','-',$ApiPython);
-
-                #dd($two,$novo);
-
-        //     //$comando = shell_exec("C:\Users\Wenyx\AppData\Local\Programs\Python\Python310\python C:\Users\Wenyx\Csvs\hello.py {$twos} ");
-               $comando = exec("python3 /home/guilherme/Development/Shud-API/example-app/public/Gerador.py {$novo}");
-
-
-
-               var_dump($comando);
-               //dd($two);
-        }
+        var_dump('acabo colletion começa');
         return CandidateResource::collection($can);
 
     }

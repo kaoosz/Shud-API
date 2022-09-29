@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\VotesNeighborhoods;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Candidate extends Model
@@ -22,26 +21,25 @@ class Candidate extends Model
 
     public function bairro2020() :HasMany
     {
-       return $this->hasMany(VotesNeighborhood::class,'NM_VOTAVEL')// local key?= primary key
+       return $this->hasMany(Votesneighborhood::class,'NM_VOTAVEL')
        ->select("NM_VOTAVEL","NR_VOTAVEL","ANO_ELEICAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
        ->orderByDesc('QT_VOTOS');
     }
     public function bairro2018() :HasMany
     {
-        return $this->hasMany(Votesneighborhood_2018::class,'NM_VOTAVEL')// local key?= primary key
+        return $this->hasMany(Votesneighborhood_2018::class,'NM_VOTAVEL')
         ->select("NM_VOTAVEL","NR_VOTAVEL","ANO_ELEICAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
         ->orderByDesc('QT_VOTOS');
     }
     public function bairro2016() :HasMany
     {
-        return $this->hasMany(Votesneighborhood_2016::class,'NM_VOTAVEL')// local key?= primary key
+        return $this->hasMany(Votesneighborhood_2016::class,'NM_VOTAVEL')
         ->select("NM_VOTAVEL","NR_VOTAVEL","DT_GERACAO_HH_GERACAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
         ->orderByDesc('QT_VOTOS');
     }
     public function bairro2014() :HasMany
     {
-        return $this->hasMany(Votesneighborhood_2014::class,'NM_VOTAVEL')// ADICIONEI NM_VOTAVEL COMO LOCAL KEY TMB MAS NAO PRECISA
-        // É USADA SE ID NAO TIVER DEFENIDO COMO PRIMARY KEY.
+        return $this->hasMany(Votesneighborhood_2014::class,'NM_VOTAVEL')
         ->select("NM_VOTAVEL","NR_VOTAVEL","DT_GERACAO_HH_GERACAO","DS_CARGO_PERGUNTA","NM_MUNICIPIO","NM_BAIRRO","QT_VOTOS")
         ->orderByDesc('QT_VOTOS');
     }

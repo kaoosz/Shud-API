@@ -16,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/',[ApiConsume::class,'test']);
-Route::get('/',function(){
-    return view('welcome');
-});
 
-Route::get('apiconsume',[ApiConsume::class,'test']);
+// Route::get('/',function(){
+//     return view('welcome');
+// });
 
-Route::get('/candidates',[CandidateController::class,'index']);
+// Route::get('/candidates',[CandidateController::class,'index']);
 
 
-Route::get('jsontocsv',[CandidateResourceController::class,'GeraPython']);
+

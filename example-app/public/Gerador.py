@@ -1,44 +1,55 @@
 import requests
 import pandas as pd
 import sys
+import base64
 
 
 
 para2 = sys.argv[1]
 
-
-para2 = para2.replace('-','&')
-para2 = para2.replace('csv=csv','')
+ba = base64.b64decode(para2)
 
 
-# headers = {
-#     'Accept': 'application/json',
-#     'Content-Type': 'application/json',
+# para2 = para2.replace('-','&')
+# para2 = para2.replace('csv=csv','')
+s = ba.decode('UTF-8')
+s = s.replace('csv=csv','')
+
+#ba = ba.replace('csv=csv','')
+
+headers = {
+     'Accept': 'application/json',
+     'Content-Type': 'application/json',
 #     'Authorization': 'Bearer o93RCG3DXhR99VWQGdSQKtfK6YYhQjlumrI63skl'
-# }
+}
 
-# params = {
-#     'urna':'MARCELO ARO',
-#     'bairro':'bairro2018',
-#     'ANO':'2018',
-#     'NR_CANDIDATO':'3133',
-# }
 
 
 # # request = requests.get('http://142.93.244.160/api/candidatos/candidatos',headers=headers,params=params)
 
-# request = requests.get(para2)
+request = requests.get(url=s,headers=headers)
 
-# response = request.json()
-
-print(para2)
-
+response = request.json()
+print(response)
 
 
-# d2 = pd.DataFrame(response["data"][0]['bairro2018'])
-# dt = pd.DataFrame(response["data"])
-# d1 = dt.iloc[:,:-1]
-# d1.to_csv('outpu.csv',index=False)
-# d2.to_csv('outpu.csv',index=False,mode='a')
+d1 = pd.DataFrame(response["data"])
+if 'bairro2018' in d1.columns:
+    d1 = d1.iloc[:,:-1]
+    df = pd.DataFrame(response['data'][0])
+    df = df['bairro2018']['data']
+    f = pd.DataFrame(df)
+    d1.to_csv('outpu.csv',index=False)
+    f.to_csv('outpu.csv',index=False,mode='a')
+
+
+if 'cities2018' in d1.columns:
+    d1 = d1.iloc[:,:-1]
+    df = pd.DataFrame(response['data'][0])
+    df = df['cities2018']['data']
+    f = pd.DataFrame(df)
+    d1.to_csv('outpu.csv',index=False)
+    f.to_csv('outpu.csv',index=False,mode='a')
+
 
 
