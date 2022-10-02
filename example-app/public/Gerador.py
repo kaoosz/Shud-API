@@ -15,7 +15,6 @@ ba = base64.b64decode(para2)
 s = ba.decode('UTF-8')
 s = s.replace('csv=csv','')
 
-#ba = ba.replace('csv=csv','')
 
 headers = {
      'Accept': 'application/json',
@@ -27,29 +26,29 @@ headers = {
 
 # # request = requests.get('http://142.93.244.160/api/candidatos/candidatos',headers=headers,params=params)
 
-request = requests.get(url=s,headers=headers)
+request = requests.get(s,headers=headers)
 
 response = request.json()
-print(response)
+
+q = ['cities2020','cities2018','cities2016','cities2014','cities2012',
+    'bairro2020','bairro2018','bairro2016','bairro2014','bairro2012',
+    'schools2020','schools2018','schools2016','schools2014','schools2012']
+
+d1 = pd.DataFrame(response['data'])
+f = None
 
 
-d1 = pd.DataFrame(response["data"])
-if 'bairro2018' in d1.columns:
-    d1 = d1.iloc[:,:-1]
-    df = pd.DataFrame(response['data'][0])
-    df = df['bairro2018']['data']
-    f = pd.DataFrame(df)
-    d1.to_csv('outpu.csv',index=False)
-    f.to_csv('outpu.csv',index=False,mode='a')
+for i in q:
+    if i in d1.columns:
+        d1 = d1.iloc[:,:-1]
+        df = pd.DataFrame(response['data'])
+        df = df[i][0]
+        f = pd.DataFrame(df)
+        d1.to_csv('output.csv',index=False)
+        f.to_csv('output.csv',index=False,mode='a')
 
 
-if 'cities2018' in d1.columns:
-    d1 = d1.iloc[:,:-1]
-    df = pd.DataFrame(response['data'][0])
-    df = df['cities2018']['data']
-    f = pd.DataFrame(df)
-    d1.to_csv('outpu.csv',index=False)
-    f.to_csv('outpu.csv',index=False,mode='a')
+
 
 
 

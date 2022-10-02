@@ -61,6 +61,7 @@ Route::post('/password/email',[AuthController::class,'sendPasswordResetLinkEmail
 Route::post('/password/reset',[AuthController::class,'resetPassword']);
 
 Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
+Route::get('csv',[CandidateResourceController::class,'test']);
 
 
 

@@ -47,37 +47,39 @@ class CandidateResourceController extends Controller
      * @param  \App\Models\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
+    public function test(){
+        return 'fun';
+    }
     public function show(Candidate $candidate,Request $request)
     {
         if(request()->get('csv')){
-            var_dump('csv');
-
             $ApiPython = $request->fullUrl();
-            $two = "http://142.93.244.160/api/candidatos/candidatos?urna=MARCELO ARO&NR_CANDIDATO=3133&ANO=2018&bairro=bairro2018&csv=csv";
-            $code = base64_encode($two);
+            //$two = "http://142.93.244.160/api/candidatos/candidatos?urna=MARCELO ARO&NR_CANDIDATO=3133&ANO=2018&bairro=bairro2018&csv=csv";
+            $code = base64_encode($ApiPython);
 
-            $comando = exec("python3 /home/guilherme/Development/Shud-API/example-app/public/Gerador.py {$code}");
+            if($request->has('paginate')){
+                return 'Remove Paginate To Create Csv';
+            }
+            //$comando = exec("python3 /home/guilherme/Development/Shud-API/example-app/public/Gerador.py {$code}");
 
-            var_dump($comando);
-            
-            $file = public_path()."/outpu.csv";
-            $headers = array(
-                'Content-Type: application/pdf',
-            );
-            return Response::download($file, 'outpu.csv', $headers);
+            //var_dump($comando);
+
+            // $file = public_path()."/outpu.csv";
+            // $headers = array(
+            //     'Content-Type: application/pdf',
+            // );
+            // return Response::download($file, 'outpu.csv', $headers);
 
             return 'Sucess Csv';
                
         }
 
         if(!request()->get('ANO') or !request()->get('NR_CANDIDATO') ){
-            var_dump('simple');
             $can = Candidate::query()
             ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate(10);
         }
 
         if(request()->get('ANO')){
-            var_dump('relacao');
 
             $can = Candidate::query()
             ->when(request()->get('escola') === 'schools2020',fn($query) => $query->with('schools2020'))
@@ -106,12 +108,7 @@ class CandidateResourceController extends Controller
             //return CandidateResource::collection($can);
         }
 
-
-        var_dump('acabo colletion começa');
         return CandidateResource::collection($can);
-
-    }
-    public function getcsv(){
 
     }
 
