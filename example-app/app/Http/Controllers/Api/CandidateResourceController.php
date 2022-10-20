@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Response;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class CandidateResourceController extends Controller
@@ -47,12 +48,10 @@ class CandidateResourceController extends Controller
      * @param  \App\Models\Candidate  $candidate
      * @return \Illuminate\Http\Response
      */
-    public function test(){
-        return 'fun';
-    }
     public function show(Candidate $candidate,Request $request)
     {
-        if(request()->get('csv')){
+        if(request()->get('csvs')){
+
             $ApiPython = $request->fullUrl();
             //$two = "http://142.93.244.160/api/candidatos/candidatos?urna=MARCELO ARO&NR_CANDIDATO=3133&ANO=2018&bairro=bairro2018&csv=csv";
             $code = base64_encode($ApiPython);
@@ -74,6 +73,7 @@ class CandidateResourceController extends Controller
                
         }
 
+
         if(!request()->get('ANO') or !request()->get('NR_CANDIDATO') ){
             $can = Candidate::query()
             ->where('NM_URNA_CANDIDATO',request()->get('urna'))->paginate(10);
@@ -81,7 +81,8 @@ class CandidateResourceController extends Controller
 
         if(request()->get('ANO')){
 
-            $can = Candidate::query()
+            $can = Cache::remember('candidates',10,function(){ 
+            return Candidate::query()
             ->when(request()->get('escola') === 'schools2020',fn($query) => $query->with('schools2020'))
             ->when(request()->get('escola') === 'schools2018',fn($query) => $query->with('schools2018'))
             ->when(request()->get('escola') === 'schools2016',fn($query) => $query->with('schools2016'))
@@ -104,9 +105,10 @@ class CandidateResourceController extends Controller
             ['ANO_ELEICAO',request()->get('ANO')],
             ['NR_CANDIDATO',request()->get('NR_CANDIDATO')]]
             )->get();
+            });
 
-            //return CandidateResource::collection($can);
         }
+
 
         return CandidateResource::collection($can);
 

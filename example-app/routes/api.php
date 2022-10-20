@@ -5,12 +5,12 @@ use App\Http\Controllers\Api\CandidateResourceController;
 use App\Http\Controllers\Api\TopVotosBairro;
 use App\Http\Controllers\Api\TopVotosCidade;
 use App\Http\Controllers\Api\TopVotosEscola;
+use App\Models\User;
+use App\Traits\Testings;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
-
-
-
+use Illuminate\Validation\Validator;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +51,8 @@ use Illuminate\Support\Facades\Route;
 //     return Response::download($file, 'outpu.csv', $headers);
 // });
 
+
+
 Route::get('candidatosMaisVotadosCidade',[TopVotosCidade::class,'CidadeMaisVotada']);//->only('show','index');
 Route::get('candidatosMaisVotadosEscola',[TopVotosEscola::class,'EscolaMaisVotada']);//->only('show','index');
 Route::get('candidatosMaisVotadosBairro',[TopVotosBairro::class,'BairroMaisVotada']);//->only('show','index');
@@ -60,22 +62,21 @@ Route::post('login',[AuthController::class,'login']);
 Route::post('/password/email',[AuthController::class,'sendPasswordResetLinkEmail']);
 Route::post('/password/reset',[AuthController::class,'resetPassword']);
 
-Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
-Route::get('csv',[CandidateResourceController::class,'test']);
-
+//Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
 
 
 Route::group(['middleware' => ['auth:sanctum']],function(){
-
-    //Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
+    Route::apiResource('candidatos',CandidateResourceController::class)->only('show','index');
 });
 
-// Route::get('creat',function(){
+Route::get('creat',function(){
 
-//     User::create([
-//         'name' => 'allan',
-//         'email' => 'allan@gmail.com',
-//         'password' => Hash::make('123'),
-//         'is_admin' => true,
-//     ]);
-// });
+    User::create([
+        'name' => 'allan',
+        'email' => 'allan@gmail.com',
+        'password' => Hash::make('123'),
+        'is_admin' => true,
+    ]);
+});
+
+

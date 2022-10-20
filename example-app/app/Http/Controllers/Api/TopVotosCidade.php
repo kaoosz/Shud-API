@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class TopVotosCidade extends Controller
 {
 
-
+    // fazer um cache aqui pra testar em todos
     public function CidadeMaisVotada()
     {
         if(request()->get('top_cidade')){

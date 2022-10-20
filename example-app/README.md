@@ -1,64 +1,177 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+ADICIONEI CPF menor que 11 digitos o 0 na frente..
+########
+TODOS OS CANDIDATOS ###############
+################
+http://localhost:8000/api/candidatos
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+PESSOA ESPECIFICA com todas ELEICOES
 
-## About Laravel
+http://localhost:8000/api/candidatos/candidatos?urna=MARCELO%20ARO
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+APENAS ANO E NUMERO DO CANDIDATO E NOME
+http://localhost:8000/api/candidatos/candidatos?urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+#############
+VOTOS POR CIDADE
+#######
+http://localhost:8000/api/candidatos/candidatos?cidade=cities2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+#######
+VOTOS CIDADE POR UF ###
+#######
+http://localhost:8000/api/candidatos/candidatos?UF=BELO HORIZONTE&cidade=cities2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
 
-## Learning Laravel
+######
+VOTOS ESCOLA ##
+######
+http://localhost:8000/api/candidatos/candidatos?escola=schools2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+######
+VOTOS ESCOLA UF ##
+######
+http://localhost:8000/api/candidatos/candidatos?UF=BELO HORIZONTE&escola=schools2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+######
+VOTOS BAIRRO ##
+######
+http://localhost:8000/api/candidatos/candidatos?bairro=bairro2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
+######
+VOTOS BAIRRO UF ##
+######
+http://localhost:8000/api/candidatos/candidatos?UF=BELO HORIZONTE&bairro=bairro2014&urna=MARCELO%20ARO&NR_CANDIDATO=3133&ANO=2014
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+######
+Paginação Exemplo &page=3
+paginação para não ter uma resposta de 30 mil linhas
+serão exibidos 10 resuldatos por pagina....
+######
+http://localhost:8000/api/candidatos/candidatos?bairro=bairro2014&NR_CANDIDATO=3133&ANO=2014&urna=MARCELO ARO&page=3
+######
 
-## Laravel Sponsors
+######
+MAIS VOTADOS POR BAIRRO TOP 10 Candidatos DE UM BAIRRO
+######
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+mais votados por Bairro pega todos municipios e bairro sem restrições
+Ex: top_bairro=bairro e amount=5 é quantidade de candidatos retornada
+######
+http://localhost:8000/api/candidatosMaisVotadosBairro/10?top_bairro=bairro2018&amount=5
+######
 
-### Premium Partners
+######
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+bairro com Municipio  traz todos candidatos com este municipio
+ex: municipio=UBERLÂNDIA e amount=5 é quantidade desejada
+######
+http://localhost:8000/api/candidatosMaisVotadosBairro/10?top_bairro=bairro2018&municipio=UBERLÂNDIA&amount=5
+######
 
-## Contributing
+bairro com outro bairro definido e quantidade desejada
+ex: bairro=CENTRO e amount=5 quantidade igual 5
+######
+http://localhost:8000/api/candidatosMaisVotadosBairro/10?top_bairro=bairro2018&bairro=CENTRO&amount=5
+######
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+bairro e apenas Cargo e quantidade desejada traz apenas candidatos com este cargo especifico
+ex: cargo=SENA e amount=5
+######
+http://localhost:8000/api/candidatosMaisVotadosBairro/10?top_bairro=bairro2018&cargo=SENADOR&amount=5
+######
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+bairro com Municipio definido e Bairro definido retorna aquele municipio e bairro especifico apenas
+ex: municipio=UBERLÂNDIA e bairro=CENTRO e amount=5
+######
+http://localhost:8000/api/candidatosMaisVotadosBairro/10?top_bairro=bairro2018&municipio=UBERLÂNDIA&bairro=CENTRO&amount=5
+######
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+bairro com Municipio,Bairro,Cargo defenidos vão retornar apenas candidatos com essas caracteristicas
+ex: municipio=UBERLÂNDIA e bairro=CENTRO e cargo=SENADOR e amount=5
+######
+http://localhost:8000/api/candidatosMaisVotadosBairro/10?top_bairro=bairro2018&municipio=UBERLÂNDIA&bairro=CENTRO&cargo=SENADOR&amount=5
+######
 
-## License
+######
+MAIS VOTADOS POR ESCOLA TOP 10 Candidatos DE UMA ESCOLA
+######
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+candidatos por escola vai de trazer os candidatos por escola com mais votos
+ex: top_escola=escola2012 ou escola2020 amount=5
+
+######
+http://localhost:8000/api/candidatosMaisVotadosEscola/?top_escola=escola2012&amount=5
+######
+
+candidatos por escola vai trazer os candidatos por escola e um determinado Municipio amount é quantidade
+ex: MUNICIPIO=UBERLÂNDIA e amount=5
+######
+http://localhost:8000/api/candidatosMaisVotadosEscola/?municipio=UBERLÂNDIA&top_escola=escola2012&amount=5
+######
+
+candidatos por escola vai trazer os candidatos por escola e um determinado Cargo e amount é quantidade desejada
+ex: CARGO=PREFEITO e amount=5
+######
+http://localhost:8000/api/candidatosMaisVotadosEscola/?top_escola=escola2012&cargo=PREFEITO&amount=5
+######
+
+candidatos por escola vai trazer os candidatos por escola e um determinado Cargo e Municipio e quantidade é amount=5
+ex: CARGO=PREFEITO e MUNICIPIO=UBERLÂNDIA e amount=5
+######
+http://localhost:8000/api/candidatosMaisVotadosEscola/?municipio=UBERLÂNDIA&top_escola=escola2012&cargo=PREFEITO&amount=5
+######
+######
+
+Top Votos por Cidade
+######
+votos por Cidade você passa o ano e quantidade ele trara quantidate especifica de Candidatos
+ex:top_cidade=cidade2014 e amount=10 quantidade
+######
+http://localhost:8000/api/candidatosMaisVotadosCidade/?top_cidade=cidade2014&amount=10
+######
+
+votos por Cidade com Cargo e quantidade. trara apenas de uma cidade e cargo especifico
+ex: cargo=SENADOR ou cargo=DEPUTADO FEDERAL
+######
+http://localhost:8000/api/candidatosMaisVotadosCidade/?top_cidade=cidade2014&amount=10&cargo=SENADOR
+######
+
+votos por Cidade especifica retorna apenas Candidatos de uma cidade especifica apenas
+ex: municipio=UBERLÂNDIA e top_cidade=cidade2014 e amount=10
+######
+http://localhost:8000/api/candidatosMaisVotadosCidade/?municipio=UBERLÂNDIA&top_cidade=cidade2014&amount=10
+######
+
+votos por Cidade,Cargo especificos isso retorna apenas Candidatos com Cidade e Cargo especificos
+ex: municipio=UBERLÂNDIA e cargo=SENADOR e amount=10
+######
+http://localhost:8000/api/candidatosMaisVotadosCidade/?municipio=UBERLÂNDIA&top_cidade=cidade2014&amount=10&cargo=SENADOR
+######
+######
+######
+######
+
+
+#OBS SE VOCÊ COLOCAR ANO = 2018 e bairro2014
+#ele irá trazer os dados de 2014
+
+#TODAS FUNÇÔES DE PESQUISA APENAS MUDAR O ANO QUE IRA FUNCIONAR CORRETAMENTE
+
+urna=MARCELO%20ARO ou urna=MARCELO ARO  ## ira funcionar normalmente.. é nome do candidato
+
+
+bairro=bairro2014 ou bairro=bairro2018
+
+escola=schools2014 ou escola=schools2018
+
+cidade=cities2014 ou cidade=cities2018
+
+
+NR_CANDIDATO=3133   ## numero da urna do candidato
+
+ANO=2014 ou ANO=2018  ## ano da eleição alvo da pesquisa
+
+UF=BELO HORIZONTE ou UF=PARAOPEBA  ## cidade alvo é o MUNICIPIO
+
+page=3 ## Paginação para não ter 30 mil linhas de jsoon de registros
+
